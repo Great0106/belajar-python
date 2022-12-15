@@ -4,6 +4,21 @@ money = 50
 cartlist = []
 menu = "" #buy, return, quit
 
+def buyProduct (product,price):
+    global money
+    money = money - price
+    cartlist.insert(0,product)
+    print(f"Your money left = {money}")
+    print(f"Your shopping cart = {cartlist}")
+
+def returnProduct(product,price):
+    global money
+    money = money + price
+    cartlist.remove(product)
+    print(f"Your money left = {money}")
+    print(f"Your shopping cart = {cartlist}")
+
+
 while menu != quit:
     print("""
 
@@ -26,12 +41,9 @@ while menu != quit:
         for item in items:
             if ask == item[0]:
                 print(f"{ask} is $ {item[1]}")
-                confirm = input("Do you want to proceed? Answer with 'Y' to proceed or 'N' to cancel. ")
+                confirm = input("Do you want to proceed? Answer with 'Y' to proceed or 'N' to cancel. ").lower()
                 if confirm == 'Y':
-                    money = money - item[1]
-                    cartlist.insert(0,item)
-                    print(f"Money left = {money}")
-                    print(f"Your shopping cart = {cartlist}")
+                    buyProduct(item,item[1])
                 else:
                     pass
             else:
@@ -43,11 +55,8 @@ while menu != quit:
             if returnask == item[0]:
                 print(f"{returnask} is $ {item[1]}")
                 confirm = input("Do you want to proceed? Answer with 'Y' to proceed or 'N' to cancel. ")
-                if confirm == 'Y':
-                    money = money + item[1]
-                    cartlist.remove(item)
-                    print(f"Money left = {money}")
-                    print(f"Your shopping cart = {cartlist}")
+                if confirm == 'y':
+                    returnProduct(item,item[1])
                 else:
                     pass
             else:
@@ -58,4 +67,3 @@ while menu != quit:
 
     else:
         print("Invalid input.")
-
